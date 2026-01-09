@@ -37,8 +37,7 @@ Core AI features will be implemented during the hackathon.
 - Pre-submission: Repository setup and MVP scaffold
 - Hackathon Day: Full feature implementation and demo
 
-## Team
-- Participant:
+## Team Participant:
 - ABHISHEK PAREEK V
 - GURUBARAN K
 - ADHITHYA M V
