@@ -38,7 +38,8 @@ Core AI features will be implemented during the hackathon.
 - Hackathon Day: Full feature implementation and demo
 
 ## Team
-- Participant: ABHISHEK PAREEK V
-               GURUBARAN K
-               ADHITHYA M V
-               ABHINAV R
+- Participant:
+- ABHISHEK PAREEK V
+- GURUBARAN K
+- ADHITHYA M V
+- ABHINAV R
