@@ -1,0 +1,40 @@
+{
+    "user_skills": [
+        "Python",
+        "Git"
+    ],
+    "role": "Software Engineer",
+    "job_skills": [
+        "Python",
+        "Data Structures",
+        "Algorithms",
+        "SQL",
+        "Git"
+    ],
+    "missing_skills": [
+        "Data Structures",
+        "Algorithms",
+        "SQL"
+    ],
+    "score": 40.0,
+    "roadmap": [
+        {
+            "week": 1,
+            "skill": "Data Structures",
+            "goal": "Learn basics of Data Structures",
+            "task": "Complete one beginner course and one mini-project on Data Structures"
+        },
+        {
+            "week": 2,
+            "skill": "Algorithms",
+            "goal": "Learn basics of Algorithms",
+            "task": "Complete one beginner course and one mini-project on Algorithms"
+        },
+        {
+            "week": 3,
+            "skill": "SQL",
+            "goal": "Learn basics of SQL",
+            "task": "Complete one beginner course and one mini-project on SQL"
+        }
+    ]
+}
