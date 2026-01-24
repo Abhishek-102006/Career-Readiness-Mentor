@@ -6,6 +6,19 @@ from jd_parser import extract_skills_from_jd
 from roadmap import generate_roadmap
 from readiness_score import calculate_readiness
 from agent_memory import save_memory, load_memory
+from ai_brain import generate_ai_recommendations
+from career_chat import ai_chat_agent
+from autonomous_agent import (
+    decompose_goal,
+    generate_autonomous_plan,
+    autonomous_reasoning,
+    update_agent_state
+)
+from learning_agent import adapt_strategy
+from progress_agent import track_progress
+from prediction_agent import predict_readiness_timeline
+from skill_graph import get_skill_path
+
 
 st.title("Career Readiness Mentor & Skill-Gap Navigator")
 
@@ -114,3 +127,106 @@ if st.button("Check Skill Gap"):
                     f"Week {item['week']}: {item['goal']}  \n"
                     f"👉 Task: {item['task']}"
                 )
+                
+    # 🤖 AI Career Agent Output
+    st.subheader("🤖 AI Career Mentor Recommendations")
+
+    ai_tips = generate_ai_recommendations(
+        user_skills=user_skills,
+        missing_skills=missing_skills,
+        role=role,
+        score=score
+    )
+
+    for tip in ai_tips:
+        st.info(tip)
+
+    st.divider()
+    st.subheader("💬 AI Career Mentor Chat")
+
+    user_msg = st.text_input("Ask your AI Mentor")
+
+    if user_msg:
+        memory = load_memory()
+        reply = ai_chat_agent(user_msg, memory)
+        st.chat_message("assistant").write(reply)
+
+    # ============================
+    # 🤖 AUTONOMOUS AI AGENT
+    # ============================
+    st.divider()
+    st.subheader("🤖 Autonomous AI Career Agent")
+
+    user_goal = st.text_input("🎯 Enter your career goal (e.g. 'Get internship in 3 months')")
+
+    if user_goal:
+        memory = load_memory()
+
+        st.subheader("🧠 Goal Decomposition")
+        steps = decompose_goal(user_goal)
+        for i, step in enumerate(steps, 1):
+            st.write(f"{i}. {step}")
+
+        st.subheader("🗺 Autonomous Plan")
+        plan = generate_autonomous_plan(user_goal, missing_skills)
+        for item in plan:
+            st.write(f"Week {item['week']} → {item['step']}")
+            st.write(f"👉 Task: {item['task']}")
+            st.write(f"📌 Status: {item['status']}")
+            st.divider()
+
+        st.subheader("🧠 Autonomous Reasoning Engine")
+        decisions = autonomous_reasoning(memory, score)
+        for d in decisions:
+            st.warning(d)
+
+        # Self-update memory
+        updated_state = update_agent_state(memory, {
+            "goal": user_goal,
+            "plan": plan,
+            "decisions": decisions
+        })
+
+        save_memory(updated_state)
+   
+    # ============================
+    # 🧠 SELF-LEARNING AI AGENT
+    # ============================
+    st.divider()
+    st.subheader("🧠 Self-Learning AI Agent")
+
+    completed_weeks = st.multiselect(
+        "✅ Select completed weeks from roadmap",
+        options=[item["week"] for item in roadmap]
+    )
+
+    progress_data = {
+        "completed_tasks": len(completed_weeks)
+    }
+
+    # 📈 Progress tracking
+    progress_state = track_progress(roadmap, completed_weeks)
+    st.subheader("📈 Progress Tracker")
+    for p in progress_state:
+        st.write(f"Week {p['week']} → {p['status']}")
+
+    # 🧠 Adaptive learning
+    memory = load_memory()
+    adaptation = adapt_strategy(memory, progress_data)
+
+    st.subheader("🧠 Adaptive Intelligence")
+    for a in adaptation:
+        st.info(a)
+
+    # 🔮 Prediction engine
+    progress_rate = "fast" if len(completed_weeks) > 2 else "slow"
+    prediction = predict_readiness_timeline(score, progress_rate)
+
+    st.subheader("🔮 AI Prediction Engine")
+    st.success(prediction)
+
+    # 🧩 Skill dependency graph
+    st.subheader("🧩 Skill Growth Path")
+    for skill in missing_skills:
+        path = get_skill_path(skill)
+        st.write(f"{skill} → {' → '.join(path)}")
